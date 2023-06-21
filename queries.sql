@@ -97,3 +97,32 @@ SELECT *
 FROM student
 ORDER BY person_id
 LIMIT 5;
+
+-- STAGE 4
+
+CREATE TABLE score1 (
+    "person_id" VARCHAR(9),
+    "score" INTEGER
+);
+
+CREATE TABLE score2 (
+    "person_id" VARCHAR(9),
+    "score" INTEGER
+);
+
+CREATE TABLE score3 (
+    "person_id" VARCHAR(9),
+    "score" INTEGER
+);
+
+.mode csv
+.import --skip 1 score1.csv score1
+.import --skip 1 score2.csv score2
+.import --skip 1 score3.csv score3
+.mode column
+
+SELECT * FROM score1
+UNION ALL
+SELECT * FROM score2
+UNION ALL
+SELECT * FROM score3;
