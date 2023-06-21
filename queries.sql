@@ -126,3 +126,32 @@ UNION ALL
 SELECT * FROM score2
 UNION ALL
 SELECT * FROM score3;
+
+-- STAGE 5
+
+CREATE TABLE score (
+    "person_id" VARCHAR(9),
+    "score" INTEGER
+);
+
+INSERT INTO score (person_id, score)
+    SELECT * FROM score1
+    UNION ALL
+    SELECT * FROM score2
+    UNION ALL
+    SELECT * FROM score3;
+
+DROP TABLE score1;
+DROP TABLE score2;
+DROP TABLE score3;
+
+SELECT * FROM score
+ORDER BY person_id
+LIMIT 5;
+
+SELECT person_id, count(score)
+FROM score
+GROUP BY person_id
+HAVING count(score) = 3
+ORDER BY person_id
+LIMIT 5;
