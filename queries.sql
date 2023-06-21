@@ -155,3 +155,37 @@ GROUP BY person_id
 HAVING count(score) = 3
 ORDER BY person_id
 LIMIT 5;
+
+-- STAGE 6
+
+UPDATE student
+SET grade_code = 'GD-10'
+WHERE student.person_id IN
+    (SELECT person_id
+    FROM score
+    GROUP BY person_id
+    HAVING count(score) = 1);
+
+UPDATE student
+SET grade_code = 'GD-11'
+WHERE student.person_id IN
+    (SELECT person_id
+    FROM score
+    GROUP BY person_id
+    HAVING count(score) = 2);
+
+UPDATE student
+SET grade_code = 'GD-12'
+WHERE student.person_id IN
+    (SELECT person_id
+    FROM score
+    GROUP BY person_id
+    HAVING count(score) = 3);
+
+UPDATE student
+SET grade_code = 'GD-09'
+WHERE grade_code ISNULL;
+
+SELECT * FROM student
+ORDER BY person_id
+LIMIT 5;
