@@ -53,6 +53,7 @@ ORDER BY
 LIMIT
     5;
 
+
 SELECT 
     COUNT(person_id) 
 FROM
@@ -69,3 +70,30 @@ WHERE person_id IN (
         teacher
 );
 
+-- STAGE 3
+
+CREATE TABLE student (
+    "person_id" VARCHAR(9) PRIMARY KEY,
+    "grade_code" TEXT
+);
+
+INSERT INTO student (person_id)
+    SELECT 
+        person_id
+    FROM 
+        person
+    WHERE person_id IN (
+        SELECT 
+            person_id
+        FROM 
+            person
+        EXCEPT
+        SELECT
+            person_id
+        FROM
+            teacher);
+
+SELECT * 
+FROM student
+ORDER BY person_id
+LIMIT 5;
